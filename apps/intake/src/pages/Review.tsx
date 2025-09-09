@@ -86,10 +86,16 @@ const Review = (): JSX.Element => {
         patientInfo.id = undefined;
       }
 
+      // Transform phone number to remove formatting before sending to backend
+      const transformedPatientInfo = {
+        ...patientInfo,
+        phoneNumber: patientInfo.phoneNumber ? patientInfo.phoneNumber.replace(/\D/g, '') : patientInfo.phoneNumber,
+      };
+
       // Create the appointment
       const res = await ottehrApi.createAppointment(zambdaClient, {
         slotId,
-        patient: patientInfo,
+        patient: transformedPatientInfo,
         unconfirmedDateOfBirth,
         language: 'en', // replace with i18n.language to enable
       });

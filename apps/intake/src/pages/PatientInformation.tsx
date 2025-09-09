@@ -196,6 +196,14 @@ const PatientInformation = (): JSX.Element => {
           required: true,
         },
         {
+          type: 'Text',
+          name: 'phoneNumber',
+          label: 'Phone number',
+          format: 'Phone Number',
+          defaultValue: patientInfo?.phoneNumber,
+          required: true,
+        },
+        {
           type: 'Select',
           name: 'reasonForVisit',
           label: t('aboutPatient.reasonForVisit.label'),
@@ -290,6 +298,14 @@ const PatientInformation = (): JSX.Element => {
           label: t('aboutPatient.email.label'),
           format: 'Email',
           defaultValue: defaultEmail,
+          required: true,
+        },
+        {
+          type: 'Text',
+          name: 'phoneNumber',
+          label: 'Phone number',
+          format: 'Phone Number',
+          defaultValue: patientInfo?.phoneNumber,
           required: true,
         },
         {
@@ -409,9 +425,12 @@ const PatientInformation = (): JSX.Element => {
   });
 
   const onFormValuesChange = useCallback((formValues: FieldValues): void => {
-    setFormValuesCopy({
+    // Transform phone number to remove formatting before submission
+    const transformedFormValues = {
       ...formValues,
-    });
+      phoneNumber: formValues.phoneNumber ? formValues.phoneNumber.replace(/\D/g, '') : formValues.phoneNumber,
+    };
+    setFormValuesCopy(transformedFormValues);
   }, []);
   return (
     <PageContainer title={t('aboutPatient.title')} description={t('aboutPatient.subtitle')}>

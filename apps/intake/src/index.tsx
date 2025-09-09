@@ -25,7 +25,7 @@ root.render(
       domain={VITE_APP_AUTH_URL}
       clientId={VITE_APP_CLIENT_ID}
       authorizationParams={{
-        connection: 'sms',
+        // connection: 'sms',
         redirectUri: `${window.location.origin}/redirect`,
         audience: VITE_APP_AUTH0_AUDIENCE,
         scope: 'openid profile email offline_access',
